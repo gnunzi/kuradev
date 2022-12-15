@@ -18,9 +18,9 @@ ENV \
     KURA_DIR=/opt/eclipse/kura \
     LAUNCHER_VERSION="1.5.800.v20200727-1323" 
 # Build platform first
-RUN cd /kura/target-platform && mvn clean dependency:resolve -Pno-mirror $MAVEN_PROPS_DEPENDENCIES
+RUN cd /kura/target-platform && mvn -B dependency:resolve -Pno-mirror $MAVEN_PROPS_DEPENDENCIES
 RUN cd /kura/target-platform && \
-    mvn -B -f pom.xml install -Pno-mirror $MAVEN_PROPS
+    mvn -B -f pom.xml clean install -Pno-mirror $MAVEN_PROPS
 RUN cd /kura && \
     `# Replace broken 'nn' script` \
     cp kura/distrib/src/main/sh/extract.sh kura/distrib/src/main/sh/extract_nn.sh
