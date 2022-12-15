@@ -31,12 +31,9 @@ RUN cd /kura/kura/distrib && mvn -B clean install $MAVEN_PROPS -Pintel-up2-ubunt
 RUN apk del maven
 #Install
 RUN /kura/kura/distrib/target/kura_*_intel-up2-ubuntu-20-nn_installer.sh
+COPY bin /usr/local/bin
 RUN  `# Test for the existence of the entry point` \
     test -x "${KURA_DIR}/bin/start_kura.sh" && \
-    \
-    cp -av /context/bin/* /usr/local/bin && \
-    cd / && \
-    rm -Rf /context && \
     install -m 0777 -d "${KURA_DIR}/data" && \
     ln -s /bin/bash /usr/bin/bash && \
     chmod a+rw -R /opt/eclipse && \
