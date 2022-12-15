@@ -9,7 +9,7 @@ ENV \
     GIT_BRANCH=${GIT_BRANCH:-release-5.2.0}
 RUN echo Getting Kura from Branch ${GIT_BRANCH} && \
     git clone "$GIT_REPO" -b "$GIT_BRANCH" && \
-    apk del maven git
+    apk del git
 
 FROM kura_repo
 ENV \
@@ -28,6 +28,7 @@ RUN cd /kura && \
 #Compile
 RUN cd /kura/kura && mvn -B clean install $MAVEN_PROPS
 RUN cd /kura/kura/distrib && mvn -B clean install $MAVEN_PROPS -Pintel-up2-ubuntu-20-nn -nsu
+RUN apk del maven
 #Install
 RUN /kura/kura/distrib/target/kura_*_intel-up2-ubuntu-20-nn_installer.sh
 RUN  `# Test for the existence of the entry point` \
