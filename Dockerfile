@@ -28,7 +28,6 @@ RUN cd /kura && \
 #Compile
 RUN cd /kura/kura && mvn -B clean install $MAVEN_PROPS
 RUN cd /kura/kura/distrib && mvn -B clean install $MAVEN_PROPS -Pintel-up2-ubuntu-20-nn -nsu
-RUN apk del maven
 #Install
 RUN /kura/kura/distrib/target/kura_*_intel-up2-ubuntu-20-nn_installer.sh
 COPY bin /usr/local/bin
