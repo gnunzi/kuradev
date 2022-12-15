@@ -8,7 +8,8 @@ ENV \
     GIT_REPO=${GIT_REPO:-https://github.com/eclipse/kura.git} \
     GIT_BRANCH=${GIT_BRANCH:-release-5.2.0}
 RUN echo Getting Kura from Branch ${GIT_BRANCH} && \
-    git clone "$GIT_REPO" -b "$GIT_BRANCH";
+    git clone "$GIT_REPO" -b "$GIT_BRANCH"; && \
+    apk del maven git
 
 FROM kura_repo
 ENV \
@@ -29,11 +30,6 @@ RUN cd /kura/kura && mvn -B clean install $MAVEN_PROPS
 RUN cd /kura/kura/distrib && mvn -B clean install $MAVEN_PROPS -Pintel-up2-ubuntu-20-nn -nsu
 #Install
 RUN /kura/kura/distrib/target/kura_*_intel-up2-ubuntu-20-nn_installer.sh
-RUN  apk del maven git && \
-    chmod a+rw -R /opt/eclipse && \
-    find /opt/eclipse -type d | xargs chmod a+x && \
-    chmod a+rwx /var/log && \
-    chmod a+x /usr/local/bin/*
 RUN  `# Test for the existence of the entry point` \
     test -x "${KURA_DIR}/bin/start_kura.sh" && \
     \
@@ -42,7 +38,11 @@ RUN  `# Test for the existence of the entry point` \
     rm -Rf /context && \
     install -m 0777 -d "${KURA_DIR}/data" && \
     ln -s /bin/bash /usr/bin/bash && \
-    mkdir -p ${KURA_DIR}/packages && \
+    chmod a+rw -R /opt/eclipse && \
+    find /opt/eclipse -type d | xargs chmod a+x && \
+    chmod a+rwx /var/log && \
+    chmod a+x /usr/local/bin/*
+RUN mkdir -p ${KURA_DIR}/packages && \
     PATH=$PATH":/usr/lib/jvm/java-1.8-openjdk/bin" && \
     sed -i "s/\-printf \'\%P.n\'//g" /usr/local/bin/dp-install && \
     dp-install "https://repo1.maven.org/maven2/de/dentrassi/kura/addons/de.dentrassi.kura.addons.utils.fileinstall/0.6.0/de.dentrassi.kura.addons.utils.fileinstall-0.6.0.dp" && \
