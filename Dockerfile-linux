@@ -1,0 +1,9 @@
+FROM alpine:latest
+
+LABEL maintainer="beegy GmbH <itandt@beegy.com>"
+
+RUN apk update && \
+    apk --no-cache add git openjdk8 maven && \
+    apk --no-cache add bash zip curl gcompat && \
+    apk --no-cache add procps unzip gzip tar psmisc socat dos2unix openssl net-tools which busybox-extras \
+    bluez bluez-deprecated chrony eudev glib
