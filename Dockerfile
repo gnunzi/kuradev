@@ -8,7 +8,7 @@ ENV \
     GIT_REPO=${GIT_REPO:-https://github.com/eclipse/kura.git} \
     GIT_BRANCH=${GIT_BRANCH:-release-5.2.0}
 RUN echo Getting Kura from Branch ${GIT_BRANCH} && \
-    git clone "$GIT_REPO" -b "$GIT_BRANCH"; && \
+    git clone "$GIT_REPO" -b "$GIT_BRANCH" && \
     apk del maven git
 
 FROM kura_repo
