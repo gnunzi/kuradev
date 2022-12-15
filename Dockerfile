@@ -15,7 +15,7 @@ ENV \
     JAVA_HOME=/usr/lib/jvm/default-jvm \
     MAVEN_PROPS=-DskipTests \
     MAVEN_PROPS_DEPENDENCIES=-Dmaven.compiler.failOnError=false \
-    KURA_DIR=/opt/eclipse/kura \
+    KURA_DIR=/o  pt/eclipse/kura \
     LAUNCHER_VERSION="1.5.800.v20200727-1323" 
 # Build platform first
 RUN cd /kura/target-platform && mvn clean dependency:resolve -Pno-mirror $MAVEN_PROPS_DEPENDENCIES
@@ -25,7 +25,7 @@ RUN cd /kura && \
     `# Replace broken 'nn' script` \
     cp kura/distrib/src/main/sh/extract.sh kura/distrib/src/main/sh/extract_nn.sh
 #Download dependencies
-RUN cd /kura/kura && mvn clean dependency:resolve $MAVEN_PROPS_DEPENDENCIES&& \
+RUN cd /kura/kura && mvn clean dependency:resolve $MAVEN_PROPS_DEPENDENCIES && \
     cd /kura/kura/distrib && mvn clean dependency:resolve -Pintel-up2-ubuntu-20-nn $MAVEN_PROPS_DEPENDENCIES
 #Compile single bundles
 RUN cd /kura/kura/org.eclipse.kura.web2 && mvn -B install $MAVEN_PROPS 
