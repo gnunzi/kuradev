@@ -15,7 +15,7 @@ ENV \
     JAVA_HOME=/usr/lib/jvm/default-jvm \
     MAVEN_PROPS=-DskipTests \
     MAVEN_PROPS_DEPENDENCIES=-Dmaven.compiler.failOnError=false \
-    KURA_DIR=/o  pt/eclipse/kura \
+    KURA_DIR=/opt/eclipse/kura \
     LAUNCHER_VERSION="1.5.800.v20200727-1323" 
 # Build platform first
 RUN cd /kura/target-platform && mvn clean dependency:resolve -Pno-mirror $MAVEN_PROPS_DEPENDENCIES
