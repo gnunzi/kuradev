@@ -1,4 +1,4 @@
-FROM beegy/kura-linux:latest AS kura_repo
+FROM gnunzi/kura-linux:latest AS kura_repo
 
 LABEL maintainer="Giorgio Nunzi"
 
