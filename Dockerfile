@@ -1,4 +1,4 @@
-FROM beegy/kura-linux:latest AS KURA-REPO
+FROM beegy/kura-linux:latest AS KURA_REPO
 
 LABEL maintainer="Giorgio Nunzi"
 
@@ -10,7 +10,7 @@ ENV \
 RUN echo Getting Kura from Branch ${GIT_BRANCH} && \
     git clone "$GIT_REPO" -b "$GIT_BRANCH";
 
-FROM KURA-REPO
+FROM KURA_REPO
 ENV \
     JAVA_HOME=/usr/lib/jvm/default-jvm \
     MAVEN_PROPS=-DskipTests \
