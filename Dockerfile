@@ -1,4 +1,4 @@
-FROM gnunzi/kura-linux:latest AS kura_repo
+FROM gnunzi/kuradev-linux:latest AS kura_repo
 
 LABEL maintainer="Giorgio Nunzi"
 
