@@ -24,15 +24,9 @@ RUN cd /kura/target-platform && \
 RUN cd /kura && \
     `# Replace broken 'nn' script` \
     cp kura/distrib/src/main/sh/extract.sh kura/distrib/src/main/sh/extract_nn.sh
-#RUN cd /kura/kura/distrib && mvn clean dependency:resolve -Pintel-up2-ubuntu-20-nn $MAVEN_PROPS_DEPENDENCIES
-#Compile single bundles
-RUN cd /kura/kura/org.eclipse.kura.api && mvn -B install $MAVEN_PROPS
-RUN cd /kura/kura/org.eclipse.kura.core && mvn -B install $MAVEN_PROPS
-RUN cd /kura/kura/org.eclipse.kura.web2 && mvn -B install $MAVEN_PROPS 
-RUN cd /kura/kura/org.eclipse.kura.web2.ext && mvn -B install $MAVEN_PROPS
-#Compille all together
-RUN cd /kura/kura && mvn -B install $MAVEN_PROPS
-RUN cd /kura/kura/distrib && mvn -B install $MAVEN_PROPS -Pintel-up2-ubuntu-20-nn -nsu
+#Compile
+RUN cd /kura/kura && mvn -B clean install $MAVEN_PROPS
+RUN cd /kura/kura/distrib && mvn -B clean install $MAVEN_PROPS -Pintel-up2-ubuntu-20-nn -nsu
 #Install
 RUN /kura/kura/distrib/target/kura_*_intel-up2-ubuntu-20-nn_installer.sh
 RUN  apk del maven git && \
