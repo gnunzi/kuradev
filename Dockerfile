@@ -45,9 +45,11 @@ RUN mkdir -p ${KURA_DIR}/packages && \
     dp-install "https://repo1.maven.org/maven2/de/dentrassi/kura/addons/de.dentrassi.kura.addons.utils.fileinstall/0.6.0/de.dentrassi.kura.addons.utils.fileinstall-0.6.0.dp" && \
     add-config-ini "felix.fileinstall.disableNio2=true" && \
     add-config-ini "felix.fileinstall.dir=/load"
+COPY kura-debug-entrypoint /usr/local/bin
+RUN chmod a+x /usr/local/bin/kura-debug-entrypoint
 
 EXPOSE 443
 
 VOLUME ["/load"]
 
-ENTRYPOINT ["/usr/local/bin/kura-entry-point"]
+ENTRYPOINT ["/usr/local/bin/kura-debug-entrypoint"]
